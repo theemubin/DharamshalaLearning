@@ -210,6 +210,14 @@ Launches the test runner in interactive watch mode.
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+## AI Assistant
+
+This project has AI-powered development assistance. See [AI_ASSISTANT_CAPABILITIES.md](./AI_ASSISTANT_CAPABILITIES.md) to learn:
+- What the AI assistant can help with
+- How to work effectively with the AI
+- Common workflows and best practices
+- Technology-specific capabilities for React, Firebase, and TypeScript
+
 ## Support
 
 For support and questions, please open an issue in the GitHub repository or contact the development team.
