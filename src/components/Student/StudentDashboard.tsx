@@ -84,8 +84,6 @@ const StudentDashboard: React.FC = () => {
   const [hasPendingRequest, setHasPendingRequest] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [showMentorReviewModal, setShowMentorReviewModal] = useState(false);
-  const [selectedReviewerId, setSelectedReviewerId] = useState<string | null>(null);
-  const [selectedMenteeId, setSelectedMenteeId] = useState<string | null>(null);
   const [mentorReview, setMentorReview] = useState<MentorReviewForm>({
     morningExercise: 0,
     communication: 0,
@@ -100,7 +98,6 @@ const StudentDashboard: React.FC = () => {
   
   // If user is also a mentor, store their mentees
   const [myMentees, setMyMentees] = useState<User[]>([]);
-  const [menteeReviews, setMenteeReviews] = useState<Map<string, any>>(new Map());
 
   // Modal functionality for mentee review (mentor -> student)
   const { modalRef, contentRef, handleOutsideClick, handleContentClick } = useModal(
@@ -358,7 +355,6 @@ const StudentDashboard: React.FC = () => {
             }
           })
         );
-        setMenteeReviews(reviewsMap);
         console.log('👥 [StudentDashboard] Loaded', mentees.length, 'mentees with reviews');
       } catch (error) {
         console.error('Error loading mentees:', error);

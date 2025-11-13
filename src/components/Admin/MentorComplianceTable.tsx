@@ -49,7 +49,6 @@ const MentorComplianceTable: React.FC<Props> = ({ filters, onSelectionChange }) 
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
   const [sortBy, setSortBy] = useState<'name' | 'overdue' | 'completion'>('overdue');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [selectedMentors, setSelectedMentors] = useState<Set<string>>(new Set());
 
   const loadMentorData = async () => {
     setLoading(true);

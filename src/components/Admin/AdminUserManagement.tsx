@@ -17,8 +17,7 @@ import {
   Clock,
   Crown,
   GraduationCap,
-  UserCog,
-  Settings
+  UserCog
 } from 'lucide-react';
 import AttendanceDashboard from './AttendanceDashboard';
 
