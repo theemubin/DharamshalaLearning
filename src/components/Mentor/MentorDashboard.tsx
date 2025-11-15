@@ -57,10 +57,6 @@ const MentorDashboard: React.FC = () => {
   const [showJoiningDateModal, setShowJoiningDateModal] = useState(false);
   const [showReviewReminder, setShowReviewReminder] = useState(false);
   const [pendingReviewCount, setPendingReviewCount] = useState(0);
-  const [myMentorReviews, setMyMentorReviews] = useState<any[]>([]);
-  const [myMentor, setMyMentor] = useState<User | null>(null);
-  const [myMentees, setMyMentees] = useState<User[]>([]);
-  const [menteeReviews, setMenteeReviews] = useState<Record<string, any>>({});
 
   const handleJoiningDateUpdated = useCallback((updatedUser: User) => {
     // Update the user data in auth context
@@ -267,17 +263,14 @@ const MentorDashboard: React.FC = () => {
       // Load reviews from students (students reviewing this mentor)
       const reviews = await MentorReviewService.getReviewsByMentor(userData.id);
       console.log(`📊 [MentorDashboard] Loaded ${reviews.length} mentor reviews`);
-      setMyMentorReviews(reviews);
 
       // Load mentor's own mentor if exists
       if (userData.mentor_id) {
-        const mentorUser = await UserService.getUserById(userData.mentor_id);
-        setMyMentor(mentorUser);
+        await UserService.getUserById(userData.mentor_id);
       }
 
       // Load mentees and their latest reviews
       const mentees = await UserService.getStudentsByMentor(userData.id);
-      setMyMentees(mentees);
 
       const reviewsMap: Record<string, any> = {};
       for (const mentee of mentees) {
@@ -286,7 +279,6 @@ const MentorDashboard: React.FC = () => {
           reviewsMap[mentee.id] = latestReview;
         }
       }
-      setMenteeReviews(reviewsMap);
     } catch (error) {
       console.error('Error loading review data:', error);
     }

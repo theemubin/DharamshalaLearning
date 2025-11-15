@@ -8,14 +8,6 @@ import { User, MentorReview, MenteeReview } from '../types';
 import { calculateReviewScore } from '../utils/reviewCalculations';
 import { getCurrentWeekStart } from '../utils/reviewDateUtils';
 
-interface PersonToReview {
-  id: string;
-  name: string;
-  email: string;
-  latestScore: number | null;
-  hasReviewedThisWeek: boolean;
-}
-
 const ReviewsPage: React.FC = () => {
   const { userData } = useAuth();
   const navigate = useNavigate();

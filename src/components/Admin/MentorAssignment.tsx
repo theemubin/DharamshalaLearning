@@ -10,8 +10,7 @@ import {
   Award,
   TrendingUp,
   Bell,
-  X,
-  Clock
+  X
 } from 'lucide-react';
 import MentorRequestApproval from './MentorRequestApproval';
 
