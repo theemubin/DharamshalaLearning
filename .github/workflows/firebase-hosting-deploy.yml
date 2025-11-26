@@ -1,0 +1,59 @@
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: firebase-hosting-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    name: Deploy ${{ matrix.environment.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment:
+          - name: production
+            project_id: dharamshalacampus
+            env_secret: ENV_FILE_PRODUCTION
+            service_account_secret: FIREBASE_SERVICE_ACCOUNT_PRODUCTION
+          - name: secondary
+            project_id: campuslearnings
+            env_secret: ENV_FILE_SECONDARY
+            service_account_secret: FIREBASE_SERVICE_ACCOUNT_SECONDARY
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create environment file
+        run: |
+          if [ -z "${{ secrets[matrix.environment.env_secret] }}" ]; then
+            echo "::error::Missing secret ${{ matrix.environment.env_secret }}. Add it in the repository settings to continue."
+            exit 1
+          fi
+          printf '%s\n' "${{ secrets[matrix.environment.env_secret] }}" > .env
+
+      - name: Build application
+        run: npm run build
+
+      - name: Deploy to Firebase hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets[matrix.environment.service_account_secret] }}
+          projectId: ${{ matrix.environment.project_id }}
+          channelId: live

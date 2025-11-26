@@ -51,6 +51,7 @@
     "build": "react-scripts build",
     "build:production": "cp .env.production .env && npm run build",
     "build:secondary": "cp .env.secondary .env && npm run build",
+    "init:metadata": "node scripts/init-metadata.js",
     "deploy": "npm run build && firebase deploy --only hosting",
     "deploy:all": "npm run deploy && firebase use secondary && firebase deploy --only firestore:rules,firestore.indexes",
     "deploy:production": "npm run build:production && firebase use default && firebase deploy",
