@@ -10,7 +10,7 @@ This document summarizes a targeted code review focused on data-sync scripts, se
 High priority findings
 ---------------------
 1) Exposed secret-like values committed in repo
-   - Discord webhook appears in `.env.example`, `.env`, and several docs. Example value: `https://discord.com/api/webhooks/1436988350031728713/...`
+   - Discord webhook appears in `.env.example`, `.env`, and several docs. Example value: `https://discord.com/api/webhooks/<id>/<token>`
    - Firebase client API keys (strings starting with `AIzaSy...`) appear in `.env*`, `src/services/firebase.ts` and built assets in `/build`.
    - Why it matters: Webhooks and service account credentials (if present) are sensitive. If these are live, rotate them immediately. Client-side Firebase API keys are less sensitive (intended for public use) but should still be audited.
 

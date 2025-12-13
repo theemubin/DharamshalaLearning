@@ -15,7 +15,7 @@ This project is configured to deploy to two Firebase projects simultaneously for
 - **Project ID**: `campuslearnings`
 - **Project Number**: `59924405245`
 - **Parent Organization**: `navgurukul.org`
-- **Web API Key**: `AIzaSyC5RiENlPdKYX55FcDHWBNUr0qkrdw1clM`
+- **Web API Key**: `YOUR_SECONDARY_FIREBASE_API_KEY`
 - **Hosting URL**: https://campuslearnings.web.app
 - **Firebase Console**: https://console.firebase.google.com/project/campuslearnings/overview
 
@@ -151,3 +151,16 @@ If deployment fails:
 2. Verify project aliases: `firebase projects:list`
 3. Ensure environment files exist and contain correct values
 4. Check Firebase project permissions
+
+## GitHub Actions auto-deploy
+
+A workflow named `Deploy to Firebase Hosting` (see `.github/workflows/firebase-hosting-deploy.yml`) builds and deploys the app whenever changes are pushed to `main` or when run manually from the Actions tab. The workflow deploys twice: once for `dharamshalacampus` (production) and once for `campuslearnings` (secondary). It expects the following repository secrets:
+
+| Secret | Purpose |
+| --- | --- |
+| `ENV_FILE_PRODUCTION` | Full contents of the production `.env` file (all `REACT_APP_*` keys). Paste the text exactly as it appears locally. |
+| `FIREBASE_SERVICE_ACCOUNT_PRODUCTION` | JSON for the Firebase Admin service account that can deploy to `dharamshalacampus`. |
+| `ENV_FILE_SECONDARY` | Full contents of the secondary `.env` file. |
+| `FIREBASE_SERVICE_ACCOUNT_SECONDARY` | JSON for the Firebase Admin service account that can deploy to `campuslearnings`. |
+
+Add or rotate these secrets in **Settings → Secrets and variables → Actions**. The workflow will fail early if any required secret is missing, so keep both production and secondary entries in sync.

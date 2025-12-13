@@ -21,10 +21,10 @@ cd repo-mirror.git
 
 ```
 # Replace exact webhook with placeholder
-https://discord.com/api/webhooks/1436988350031728713/GdRSz1rDru8d6UvRRNI...==>REDACTED_DISCORD_WEBHOOK
+https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN==>REDACTED_DISCORD_WEBHOOK
 
 # Replace AIza keys
-AIzaSyBaLncnVJzGRHxgpAhyl9IeX8dz2e3e-VA==>REDACTED_FIREBASE_API_KEY
+AIzaSyYOURFIREBASEKEY==>REDACTED_FIREBASE_API_KEY
 ```
 
 3. Run git-filter-repo:
